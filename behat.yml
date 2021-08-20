@@ -3,7 +3,7 @@ default:
   extensions:
     DMore\ChromeExtension\Behat\ServiceContainer\ChromeExtension: ~
     Behat\MinkExtension:
-      base_url: http://cf5b8025d992.ngrok.io/
+      base_url: http://8f794bc98d38.ngrok.io/
       goutte: ~
       browser_name: chrome
       default_session: command_line_browser
@@ -13,38 +13,14 @@ default:
           goutte: ~
         js_enabled_browser:
           chrome:
-            api_url: http://cf5b8025d992.ngrok.io/
+            api_url: http://8f794bc98d38.ngrok.io/
             validate_certificate: false
-
-#  extensions:
-#    Laracasts\Behat:
-#      env_path: .env
-#    Behat\MinkExtension:
-#      default_session: laravel
-#      base_url: http://behat.test/
-#      laravel: ~
-#  extensions:
-#    DMore\ChromeExtension\Behat\ServiceContainer\ChromeExtension: ~
-#    Behat\MinkExtension:
-#      base_url: http://behat.test/
-#      default_session: laravel
-#      laravel: ~
-#      sessions:
-#        chrome:
-#          chrome:
-#            api_url: http://localhost:9222
-#            download_behavior: allow
-#            download_path: /download
-#            validate_certificate: false
-#    Laracasts\Behat:
-#      env_path: .env
   suites:
     default:
       contexts:
         - WelcomeContext
     phase1:
       contexts:
-#        - LoginContext
-##            table: users
-#        - PostContext
+        - LoginContext
+        - PostContext
         - ExampleContext

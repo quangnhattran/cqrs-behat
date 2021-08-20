@@ -1,7 +1,4 @@
-Feature: Laravel Behat Extension
-    In order to make testing setup easier
-    As a teacher
-    I want to show an example of installing and using the Laravel Behat extension.
+Feature: Mink Extension utilized Goutte
 
     Scenario: Dummy Example
         Given I am on the homepage

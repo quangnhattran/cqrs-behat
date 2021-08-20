@@ -21,8 +21,8 @@ class PostContext extends \Tests\TestCase implements Context
      */
     public function aPostTitledExists($arg1)
     {
-        $userId = \App\User::first()->id;
-        factory(\App\Post::class)->create(['title' => 'Title', 'user_id' => $userId]);
+        $userId = \App\Models\User::first()->id;
+        factory(\App\Models\Post::class)->create(['title' => 'Title', 'user_id' => $userId]);
     }
 
     /**
@@ -30,6 +30,6 @@ class PostContext extends \Tests\TestCase implements Context
      */
     public function iCreateAPostWithTitleAsAndBodyAsAs($title, $body, $name)
     {
-        \App\User::where('name', $name)->first()->posts()->create(['title' => $title, 'body' => $body]);
+        \App\Models\User::where('name', $name)->first()->posts()->create(['title' => $title, 'body' => $body]);
     }
 }

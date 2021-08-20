@@ -3,8 +3,8 @@
 namespace Tests\Feature;
 
 use App\Notifications\NewPostNotification;
-use App\Post;
-use App\User;
+use App\Models\Post;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Notification;
 use Tests\TestCase;

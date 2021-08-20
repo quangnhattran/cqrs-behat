@@ -19,7 +19,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::group(['prefix' => 'posts'], function () {
-    Route::group(['middleware' => 'auth:api'], function () {
+    Route::group(['middleware' => 'auth:api', 'namespace' => 'Post'], function () {
         Route::post('/', 'PostController@store');
         Route::delete('/{post}', 'PostController@destroy');
     });

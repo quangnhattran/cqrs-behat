@@ -1,21 +1,22 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Post;
 
-use App\Http\Commands\Handlers\Posts\CreateCommand;
+use App\CommandHandlers\Handlers\Posts\CreateCommand;
+use App\Facades\CommandFactory;
 use App\Http\DataTransferObjects\PostData;
-use App\Http\Repositories\PostRepository;
+use App\Repositories\PostRepository;
 use App\Http\Requests\PostCreateRequest;
-use App\Http\Resources\PostResource;
-use App\Post;
+use App\Models\Post;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use App\Http\Controllers\Controller;
 
 class PostController extends Controller
 {
     public function index(PostRepository $postRepository)
     {
-        $posts = $postRepository->all();
+        $posts = $postRepository->getAll();
         return view('posts.index', compact('posts'));
     }
 
@@ -24,13 +25,14 @@ class PostController extends Controller
         return view('posts.index', compact('post'));
     }
 
-    public function store(PostCreateRequest $request, CreateCommand $command)
+    public function store(PostCreateRequest $request)
     {
         try {
             DB::beginTransaction();
 
-            $postData = PostData::fromRequest($request->all());
-            $command->run($postData);
+            $requestData = array_merge($request->validated(), ['user_id' => auth()->id()]);
+            $postData = PostData::fromRequest($requestData);
+            CommandFactory::handle(CreateCommand::class, $postData);
 
             DB::commit();
             return response()->json();

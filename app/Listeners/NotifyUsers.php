@@ -2,9 +2,9 @@
 
 namespace App\Listeners;
 
-use App\Http\Repositories\UserRepository;
+use App\Repositories\UserRepository;
 use App\Notifications\NewPostNotification;
-use App\User;
+use App\Models\User;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 
@@ -17,7 +17,7 @@ class NotifyUsers implements ShouldQueue
      *
      * @var string|null
      */
-    public $queue = 'posts_queue';
+    public ?string $queue = 'notify_new_posts_queue';
 
     /**
      * Handle the event.

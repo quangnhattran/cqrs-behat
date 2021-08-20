@@ -2,10 +2,10 @@
 
 namespace Tests\Unit;
 
-use App\Http\Commands\Handlers\Posts\CreateCommand;
+use App\CommandHandlers\Handlers\Posts\CreateCommand;
 use App\Http\DataTransferObjects\PostData;
-use App\Post;
-use App\User;
+use App\Models\Post;
+use App\Models\User;
 use Tests\TestCase;
 
 class CreatePostCommandTest extends TestCase
@@ -17,21 +17,16 @@ class CreatePostCommandTest extends TestCase
     {
         parent::setUp();
         $this->createCommand = app(CreateCommand::class);
-        $this->authenticateWithAUser();
+        $this->user = factory(User::class)->create();
     }
 
     public function test_command_create_post()
     {
-        $requestData = factory(Post::class)->make()->toArray();
+        $requestData = ['user_id' => $this->user->id] + factory(Post::class)->make()->toArray();
         $postDTO = PostData::fromRequest($requestData);
 
-        $this->createCommand->run($postDTO);
+        $this->createCommand->execute($postDTO);
 
         $this->assertDatabaseHas('posts', $requestData);
-    }
-
-    protected function authenticateWithAUser()
-    {
-        $this->be(factory(User::class)->create());
     }
 }

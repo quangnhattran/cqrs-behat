@@ -19,6 +19,10 @@ Route::get('/', function () {
 
 Auth::routes();
 
+Route::get('/example', function () {
+    return 'It works!';
+});
+
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['prefix' => 'posts'], function () {

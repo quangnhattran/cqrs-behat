@@ -1,7 +1,22 @@
 ## Environment
-PHP 8.0
+PHP 7.4
+
+`composer install`
+
+`cp .env.example .env`
 
 ## Test
 `./vendor/bin/phpunit`
 
-`./vendor/bin/behat`
+`php artisan notify:users`
+
+`php artisan rabbitmq:consume --queue=notify_new_posts_queue`
+
+## Test Behat + Mink
+`git checkout 932e122989ff18`
+
+`composer update`
+
+`./vendor/bin/behat --stop-on-failure --no-snippets`
+
+

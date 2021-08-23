@@ -1,5 +1,6 @@
 <?php
 
+use BDDTests\traits\CommonSteps;
 use Behat\Behat\Context\Context;
 use Tests\TestCase;
 
@@ -8,29 +9,10 @@ use Tests\TestCase;
  */
 class WelcomeContext extends TestCase implements Context
 {
-    /**
-     * Initializes context.
-     */
+    use CommonSteps;
+
     public function __construct()
     {
-        $this->setUp();
-    }
-
-    /**
-     * @When I visit the path :path
-     */
-    public function iVisitThePath($path)
-    {
-        $response = $this->get($path);
-        $this->assertEquals(200, $response->getStatusCode());
-        $this->content = $response->getContent();
-    }
-
-    /**
-     * @Then I should see the text :text
-     */
-    public function iShouldSeeTheText($text)
-    {
-        $this->assertStringContainsString($text, $this->content);
+        parent::setUp();
     }
 }

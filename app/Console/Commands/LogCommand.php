@@ -2,12 +2,11 @@
 
 namespace App\Console\Commands;
 
-use App\Events\PostCreated;
+use App\Jobs\LogJob;
 use App\Jobs\PreQueueCheck;
-use App\Models\Post;
 use Illuminate\Console\Command;
 
-class NotifyUsers extends Command
+class LogCommand extends Command
 {
     use PreQueueCheck;
 
@@ -16,14 +15,14 @@ class NotifyUsers extends Command
      *
      * @var string
      */
-    protected $signature = 'notify:users';
+    protected $signature = 'log {severity=critical} {--source=anonymous}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Notify users about new post';
+    protected $description = 'Command description';
 
     /**
      * Create a new command instance.
@@ -40,9 +39,13 @@ class NotifyUsers extends Command
      *
      * @return void
      */
-    public function handle()
+    public function handle(): void
     {
-        $this->rabbitMQCheck('notifier');
-        event(new PostCreated(Post::first()));
+        $source = $this->option('source');
+        $severity = $this->argument('severity');
+
+        $this->rabbitMQCheck($source . '.' . $severity);
+
+        dispatch(new LogJob($severity));
     }
 }

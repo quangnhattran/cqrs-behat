@@ -11,22 +11,15 @@ Feature: Login
         And I come to the path "/home"
         Then I see the text "You are logged in"
 
-    Scenario: Log in as Bob
-        Given I am logged in as "Bob"
-        And I come to the path "/"
-        Then I see the text "Laravel"
+    Scenario: Logged in user
+        Given I am logged in as "Alan"
+        Then I come to the path "/login"
+        And the url should match "/example"
+        Then I come to the path "/home"
+        And I see the text "Alan"
 
-    Scenario: Log in as Clare
-        Given I am logged in as "Clare"
-        And I come to the path "/home"
-        Then I see the text "You are logged in"
+    Scenario: Post
+        Given "Alan" make a post with title "ABC"
+        Then I come to the path "/posts"
+        And I see the text "ABC"
 
-    Scenario: Log in as Derek
-        Given I am logged in as "Derek"
-        And I come to the path "/home"
-        Then I see the text "You are logged in"
-
-    Scenario: Log in as Eric
-        Given I am logged in as "Eric"
-        And I come to the path "/home"
-        Then I see the text "You are logged in"

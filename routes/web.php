@@ -25,7 +25,7 @@ Route::get('/example', function () {
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::group(['prefix' => 'posts'], function () {
+Route::group(['prefix' => 'posts', 'namespace' => 'Post'], function () {
     Route::get('/', 'PostController@index');
     Route::get('/{post}', 'PostController@show');
 });

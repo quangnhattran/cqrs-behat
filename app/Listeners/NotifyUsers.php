@@ -17,7 +17,7 @@ class NotifyUsers implements ShouldQueue
      *
      * @var string|null
      */
-    public ?string $queue = 'notify_new_posts_queue';
+    //public ?string $queue = 'edit_post_queue';
 
     /**
      * Handle the event.

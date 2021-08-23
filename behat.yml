@@ -1,26 +1,14 @@
 
 default:
   extensions:
-    DMore\ChromeExtension\Behat\ServiceContainer\ChromeExtension: ~
+    Laracasts\Behat: ~
+#      env_path: "%root_path%/.env.behatt"
     Behat\MinkExtension:
-      base_url: http://8f794bc98d38.ngrok.io/
-      goutte: ~
-      browser_name: chrome
-      default_session: command_line_browser
-      javascript_session: js_enabled_browser
-      sessions:
-        command_line_browser:
-          goutte: ~
-        js_enabled_browser:
-          chrome:
-            api_url: http://8f794bc98d38.ngrok.io/
-            validate_certificate: false
+      default_session: laravel
+      laravel: ~
   suites:
     default:
       contexts:
-        - WelcomeContext
-    phase1:
-      contexts:
-        - LoginContext
-        - PostContext
         - ExampleContext
+        - WelcomeContext
+        - LoginContext

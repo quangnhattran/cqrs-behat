@@ -1,10 +1,8 @@
 <?php
 
-use App\Console\Kernel;
 use Behat\Behat\Context\Context;
-use Behat\Behat\Hook\Scope\AfterScenarioScope;
-use Behat\Behat\Hook\Scope\BeforeScenarioScope;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Support\Facades\Artisan;
 use Tests\TestCase;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
@@ -30,18 +28,10 @@ class LoginContext extends TestCase implements Context
         parent::setUp();
     }
 
-    /** @BeforeScenario */
-    public function before(BeforeScenarioScope $scope)
+    /** @BeforeSuite */
+    public static function before(\Behat\Testwork\Hook\Scope\BeforeSuiteScope $scope)
     {
-        $this->artisan('migrate');
-
-        $this->app[Kernel::class]->setArtisan(null);
-    }
-
-    /** @AfterScenario */
-    public function after(AfterScenarioScope $scope)
-    {
-        $this->artisan('migrate:rollback');
+        Artisan::call('migrate:fresh');
     }
 
     /**
@@ -50,7 +40,6 @@ class LoginContext extends TestCase implements Context
     public function iComeToThePath($path)
     {
         $response = $this->get($path);
-        $this->assertEquals(200, $response->getStatusCode());
         $this->content = $response->getContent();
     }
 
@@ -83,5 +72,14 @@ class LoginContext extends TestCase implements Context
     {
         $user = User::where('name', $user)->first();
         $this->be($user);
+    }
+
+    /**
+     * @Given /^"([^"]*)" make a post with title "([^"]*)"$/
+     */
+    public function makeAPostWithTitle($arg1, $arg2)
+    {
+        User::where('name', $arg1)->first()->posts()
+            ->create(factory(\App\Models\Post::class)->make(['title' => $arg2])->toArray());
     }
 }

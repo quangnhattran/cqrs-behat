@@ -57,8 +57,8 @@ trait PreQueueCheck
 
         $match = true;
 
-        if (!in_array('#', $str)) {
-            $match = count($str) === count($src);
+        if (!in_array('#', $str) && count($str) !== count($src)) {
+            return false;
         }
 
         foreach ($str as $idx => $word) {

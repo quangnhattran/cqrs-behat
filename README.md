@@ -5,6 +5,8 @@ PHP 7.4
 
 `cp .env.example .env`
 
+`php artisan migrate:fresh --seed`
+
 ## Test
 `./vendor/bin/phpunit`
 

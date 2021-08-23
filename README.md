@@ -12,7 +12,11 @@ PHP 7.4
 
 `php artisan notify:users`
 
-`php artisan rabbitmq:consume --queue=notify_new_posts_queue`
+`php artisan rabbitmq:consume --queue=post_created`
+
+`php artisan log --source=kernel`
+
+`php artisan rabbitmq:consume --queue=critical_all_logs`
 
 ## Test Behat + Mink
 `git checkout 932e122989ff18`
